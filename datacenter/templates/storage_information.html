@@ -18,33 +18,42 @@
 
   <body>
     <div class="container">
-        <a class="navbar" href="{% url 'storage_information'%}">Список пользователей в хранилище</a>
+        <a class="navbar" href="{% url 'active_passcards' %}">Список активных карт доступа</a>
         <hr>
-        <h2>Активные карты доступа</h2>
-        <p>Всего активных карт доступа: {{ active_passcards.count }}</p>
+        <h2>Людей в хранилище: {{ non_closed_visits|length }}</h2>
+        <h4>Кто в хранилище</h4>
         <div class="table-responsive">
             <table class="table">
                 <thead>
                     <tr>
                     <th class="table-element">#</th>
-                    <th class="table-element">Имя владельца</th>
-                    <th class="table-element">Код пропуска</th>
-                    <th class="table-element">Карта зарегистрирована</th>
+                    <th class="table-element">Кто зашёл</th>
+                    <th class="table-element">Когда</th>
+                    <th class="table-element">Сколько там находится</th>
+                    <th class="table-element">Подозрителен?</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {% for passcard in active_passcards %}
+                    {% for visit in non_closed_visits %}
                     <tr>
                         <td class="table-element">{{ forloop.counter }}</td>
-                            <td class="table-element"><a href="{% url 'passcard_info' passcode=passcard.passcode %}"><strong>{{ passcard.owner_name }}</strong></a></td>
-                        <td class="table-element">{{ passcard.passcode }}</td>
-                        <td class="table-element">{{ passcard.created_at }}</td>
+                        <td class="table-element">{{ visit.who_entered }}</td>
+                            <td class="table-element"><strong>{{ visit.entered_at }}</strong></td>
+                        <td class="table-element">{{ visit.duration }}</td>
+                        <td class="table-element">{{ visit.is_strange }}</td>
                     </tr>
                     {% endfor %}
                 </tbody>
             </table>
         </div>
     </div>
+
+    <script>
+      setTimeout(function(){
+        window.location.reload(1);
+      }, 10000);
+    </script>
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
   </body>

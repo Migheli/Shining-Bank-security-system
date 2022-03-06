@@ -19,26 +19,26 @@
   <body>
     <div class="container">
         <a class="navbar" href="{% url 'storage_information'%}">Список пользователей в хранилище</a>
+        <a class="navbar" href="{% url 'active_passcards' %}">Список активных карт доступа</a>
         <hr>
-        <h2>Активные карты доступа</h2>
-        <p>Всего активных карт доступа: {{ active_passcards.count }}</p>
+        <h2>{{ passcard.owner_name }}</h2>
         <div class="table-responsive">
             <table class="table">
                 <thead>
                     <tr>
                     <th class="table-element">#</th>
-                    <th class="table-element">Имя владельца</th>
-                    <th class="table-element">Код пропуска</th>
-                    <th class="table-element">Карта зарегистрирована</th>
+                    <th class="table-element">Когда посетил</th>
+                    <th class="table-element">Продолжительность</th>
+                    <th class="table-element">Был ли визит подозрителен</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {% for passcard in active_passcards %}
+                    {% for visit in this_passcard_visits %}
                     <tr>
                         <td class="table-element">{{ forloop.counter }}</td>
-                            <td class="table-element"><a href="{% url 'passcard_info' passcode=passcard.passcode %}"><strong>{{ passcard.owner_name }}</strong></a></td>
-                        <td class="table-element">{{ passcard.passcode }}</td>
-                        <td class="table-element">{{ passcard.created_at }}</td>
+                            <td class="table-element"><strong>{{ visit.entered_at }}</strong></td>
+                        <td class="table-element">{{ visit.duration }}</td>
+                        <td class="table-element">{{ visit.is_strange }}</td>
                     </tr>
                     {% endfor %}
                 </tbody>
