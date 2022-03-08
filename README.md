@@ -33,7 +33,7 @@ https://docs.djangoproject.com/en/2.2/ref/settings/#std:setting-DEBUG
 ```
 DB_URL=YOUR-DJ-DATABASE-URL
 ```
-Пример для базы данных  Postgres: postgres://USER:PASSWORD@HOST:PORT/NAME 
+Пример для базы данных  Postgres: `postgres://USER:PASSWORD@HOST:PORT/NAME` 
 
 URL-адрес специального формата. Подробнее здесь: https://github.com/jacobian/dj-database-url. 
 Позволяет оптимизировать код файла `settings.py` и `.env` и содержит следующие настройки доступа к базе данных в одной строке:
